@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Happy Birthday Priya Mausi 🎉</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #ffe6f0;
+      font-family: 'Segoe UI', sans-serif;
+      color: #cc0066;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    h1 {
+      margin-top: 40px;
+      font-size: 2.8rem;
+    }
+
+    p {
+      margin: 15px auto;
+      max-width: 700px;
+      font-size: 1.2rem;
+      line-height: 1.6;
+    }
+
+    button {
+      background-color: #ff66b2;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 1rem;
+      border-radius: 30px;
+      margin: 10px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #ff3399;
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+  </style>
+</head>
+<body>
+  <h1>Happy Birthday Priya Mausi! 🎂💖</h1>
+  <p>
+    Aaj ka din hai aapke naam,<br>
+    Jahan bhi jayein ho roshni aur kaam,<br>
+    Dua hai har pal ho pyaara sa raag,<br>
+    Muskaate raho, ho sabse alag aapka swag! 🎉
+  </p>
+
+  <p><strong>🎵 Birthday Song: Har Pal Khushiyan Ho Saath</strong></p>
+
+  <audio id="song" src="https://github.com/Itz-Akshat-singh/akshat-music/raw/refs/heads/main/Khushiyan%20Saath.mp3"></audio>
+  <div>
+    <button onclick="playSong()">▶️ Play</button>
+    <button onclick="pauseSong()">⏸️ Pause</button>
+    <button onclick="resumeSong()">🔄 Resume</button>
+    <button onclick="replaySong()">🔁 Replay</button>
+  </div>
+
+  <p>
+    Zindagi ki raahon mein ho roshni ka noor,<br>
+    Har lamha ho meetha, har rishta ho pur-noor...<br>
+    Janamdin ke is tyohar par, dil se kahe hum yeh teen—<br>
+    Khush raho, muskurayo, aur hamesha chha jao! 🌟
+  </p>
+
+  <canvas id="confetti"></canvas>
+
+  <script>
+    const audio = document.getElementById("song");
+
+    function playSong() {
+      audio.play();
+    }
+
+    function pauseSong() {
+      audio.pause();
+    }
+
+    function resumeSong() {
+      if (audio.paused) audio.play();
+    }
+
+    function replaySong() {
+      audio.currentTime = 0;
+      audio.play();
+    }
+
+    // Confetti 🎉 effect
+    const canvas = document.getElementById("confetti");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const confetti = Array.from({ length: 150 }, () => ({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      r: Math.random() * 6 + 4,
+      d: Math.random() * 50 + 10,
+      color: `hsl(${Math.random() * 360}, 100%, 70%)`,
+      tilt: Math.random() * 10 - 10
+    }));
+
+    function drawConfetti() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      confetti.forEach((c, i) => {
+        ctx.beginPath();
+        ctx.arc(c.x, c.y, c.r, 0, Math.PI * 2, false);
+        ctx.fillStyle = c.color;
+        ctx.fill();
+        c.y += Math.cos(c.d) + 1 + c.r / 2;
+        c.x += Math.sin(0.5);
+        if (c.y > canvas.height) {
+          confetti[i].y = -10;
+          confetti[i].x = Math.random() * canvas.width;
+        }
+      });
+    }
+
+    setInterval(drawConfetti, 20);
+  </script>
+</body>
+</html>
